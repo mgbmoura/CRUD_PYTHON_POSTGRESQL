@@ -10,84 +10,69 @@ import psycopg2
 
 
 
-#CRIANDO CONEXÃO(Para conectar, digite os dados entre as áspas):
-conexao = psycopg2.connect(
-    database=#'Nome de um banco de  dados existente',
-    user=#'Digite o nome de usuário(Sugestão:Postgres',
-    password=#'Digite sua senha de acesso do SGBD'
+# CRIANDO CONEXÃO (Para conectar, digite os dados entre as aspas):
+ conexao = psycopg2.connect(
+ database='Nome de um banco de dados existente',
+ user='Digite o nome de usuário (Sugestão: postgres)',
+ password='Digite sua senha de acesso do SGBD'
 )
-#CRIANDO CURSOR:
-C = conexao.cursor()
 
+# CRIANDO CURSOR:
+cursor = conexao.cursor()
 
+# COMANDOS
 
+# COMANDO 1 e 2 (CREATE)
+# Este comando cria uma tabela, considere comentar logo após executá-lo:
+# comando1 = ("""
+#         CREATE TABLE NomeDaTabela (
+#         id SERIAL PRIMARY KEY,
+#         nome character varying(255),
+#         sobrenome character varying(255),
+#         email character varying(255),
+#         telefone integer)""")
 
+# cursor.execute(comando1)
+# conexao.commit()
+# print('Tabela criada com êxito.')
 
-
-
-#                                     _________________________
-                                       
-                                        ## C O M A N D O S ##
-#                                     _________________________
-
-
-
-
-# COMANDO 1 e 2 ( C R E A T E ) **OBS: CONSIDEREI O COMANDO INSERT, JUNTAMENTE COM O CREATE**:
-
-# Este comando cria uma tabela, considere comentar ele logo após commita-lo:
-# comando1 = ("""CREATE TABLE Digite o nome da tabela(
-# id integer NOT NULL,
-# nome character varying(255),
-# sobrenome character varying(255),
-# email character varying(255),
-# telefone integer)""")
-# print('tabela criada com exito')
-# C.execute(comando1)
-# conexao.commit() 
-
-# #VARIÁVEIS
-id = "Digite um nº ID"
-nome = 'Digite um nome'
+# VARIÁVEIS
+id = "Digite um número ID"
+nome = "Digite um nome"
 
 # Este comando insere dados na tabela criada ou existente:
-comando2 = (f"INSERT INTO aluno values({id}, '{nome}')")
-print('dados inseridos corretamente')
-c.execute(comando2)
+comando2 = f"INSERT INTO aluno (id, nome) VALUES ('{id}', '{nome}')"
+cursor.execute(comando2)
 conexao.commit()
+print('Dados inseridos corretamente!')
 
-
-# COMANDO 3 ( R E A D )
+# COMANDO 3 (READ)
 # Este comando retorna uma lista de tuplas com dados da tabela selecionada:
-#comando3 = ('SELECT * FROM Digite o nome da tabela')
-#c.execute(comando)
-#consulta=cursor01.fetchall()
+# comando3 = "SELECT * FROM NomeDaTabela"
+# cursor.execute(comando3)
+# consulta = cursor.fetchall()
 
-
-# COMANDO 4 ( U P D A T E ):
-# Este comando atualiza um específico dado da tabela:
+# COMANDO 4 (UPDATE)
+# Este comando atualiza um dado específico da tabela:
 
 # Variáveis:
-#nome = 'Digite um nome'
-#cpf = 11223344556
+# novo_nome = 'Digite um nome'
+# novo_cpf = 11223344556
 
-#comando4 = (f"UPDATE aluno SET cpf = {cpf} WHERE nome = '{nome}'")
-#cursor01.execute(comando)
-#conexao.commit()
+# comando4 = f"UPDATE aluno SET cpf = {novo_cpf} WHERE nome = '{novo_nome}'"
+# cursor.execute(comando4)
+# conexao.commit()
 
-
-# COMANDO 5 ( D E L E T E ):
+# COMANDO 5 (DELETE)
 # Este comando exclui um dado existente na tabela:
 
 # Variáveis:
 # nome = 'Digite um nome'
 
-# comando5 = (f"DELETE FROM aluno WHERE nome = '{nome}'")
-# C.execute(comando)
+# comando5 = f"DELETE FROM aluno WHERE nome = '{nome}'"
+# cursor.execute(comando5)
 # conexao.commit()
 
-
-
-
-conexao.close
-conexao.close
+# Fechando a conexão e o cursor:
+cursor.close()
+conexao.close()
